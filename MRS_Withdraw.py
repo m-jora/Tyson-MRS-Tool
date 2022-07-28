@@ -1,5 +1,6 @@
 import time, sys, threading
 import csv, spin
+from Comment import comment as add_comment
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -99,63 +100,54 @@ def Withdraw_requests(choice):
                 pass
 
         try:
-            commentsection = '//*[@id="SupportSection"]/ul/li[3]/a'
-            driver.find_element(By.XPATH, commentsection).send_keys(Keys.ENTER)
+            request_action = '//*[@id="Withdrawn"]'
+            driver.find_element(By.XPATH, request_action).click()
 
-
-            comment_box = '//*[@id="RequestSupportViewModel_NewComment"]'
-            driver.find_element(By.XPATH, comment_box).send_keys(comment)
+            add_comment(driver, comment)
             
+            proceed_button = '//*[@id="vm-cust-mass-update-form"]/form/div[3]/div/div/div/div/input'
+            driver.find_element(By.XPATH, proceed_button).click()
 
-            comment_submit = '//*[@id="btnAddComment"]'
-            driver.find_element(By.XPATH, comment_submit).send_keys(Keys.ENTER)
+            if driver.current_url != sites[choice]:
+                        error_count += 1
+                        id += 1
+                        error_ids.append(current_request)
 
+        except:
             try:
                 request_action = '//*[@id="rbWithdrawn"]'
                 driver.find_element(By.XPATH, request_action).click()
 
+                add_comment(driver, comment)
+
                 proceed_button = '//*[@id="btnRequestAction"]'
                 driver.find_element(By.XPATH, proceed_button).click()
-                
+
+                if driver.current_url != sites[choice]:
+                        error_count += 1
+                        id += 1
+                        error_ids.append(current_request)
 
             except:
-                pass
+                try:
+                    request_action = '//*[@id="Withdrawn"]'
+                    driver.find_element(By.XPATH, request_action).click()
+                    
+                    add_comment(driver, comment)
+                    
+                    proceed_button = '//*[@id="vm-override-partners-form"]/form/div[3]/div/div/div/div/input'
+                    driver.find_element(By.XPATH, proceed_button).click()
+                    
+                    if driver.current_url != sites[choice]:
+                        error_count += 1
+                        id += 1
+                        error_ids.append(current_request)
 
-            try:
-                request_action = '//*[@id="Withdrawn"]'
-                driver.find_element(By.XPATH, request_action).click()
-                
-                
-                proceed_button = '//*[@id="vm-cust-mass-update-form"]/form/div[3]/div/div/div/div/input'
-                driver.find_element(By.XPATH, proceed_button).click()
-                
-
-            except:
-                pass
-
-            try:
-                request_action = '//*[@id="Withdrawn"]'
-                driver.find_element(By.XPATH, request_action).click()
-                
-                
-                proceed_button = '//*[@id="vm-override-partners-form"]/form/div[3]/div/div/div/div/input'
-                driver.find_element(By.XPATH, proceed_button).click()
-                
-
-            except:
-                pass
-
-
-            if driver.current_url != sites[choice]:
-                error_count += 1
-                id += 1
-                error_ids.append(current_request)
-
-        except:
-            id += 1
-            error_count += 1
-            error_ids.append(current_request)
-        
+                except:
+                    id += 1
+                    error_count += 1
+                    error_ids.append(current_request)
+     
         num_remaining -= 1
         if num_remaining <= error_count:
             time.sleep(5)
