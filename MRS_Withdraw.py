@@ -70,7 +70,7 @@ def Withdraw_requests(choice):
     error_count = 0
     error_ids = []
 
-    while num_remaining >= error_count and num_remaining != 0:
+    while num_remaining > 0:
         
         if driver.current_url != sites[choice]:
             try:
