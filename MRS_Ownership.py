@@ -57,7 +57,7 @@ def Force_Ownership(choice):
             searchinput = driver.find_element(By.XPATH, force_button)
             searchinput.click()
 
-            time.sleep(2)
+            time.sleep(1)
         except:
             try:
                 time.sleep(2)
