@@ -104,8 +104,9 @@ def Withdraw_requests(choice):
             driver.find_element(By.XPATH, request_action).click()
 
             proceed_button = '//*[@id="vm-cust-mass-update-form"]/form/div[3]/div/div/div/div/input'
+            item = driver.find_element(By.XPATH, proceed_button)
             add_comment(driver, comment)
-            driver.find_element(By.XPATH, proceed_button).click()
+            item.click()
 
             if driver.current_url != sites[choice]:
                         error_count += 1
@@ -118,8 +119,9 @@ def Withdraw_requests(choice):
                 driver.find_element(By.XPATH, request_action).click()
 
                 proceed_button = '//*[@id="btnRequestAction"]'
+                item = driver.find_element(By.XPATH, proceed_button)
                 add_comment(driver, comment)
-                driver.find_element(By.XPATH, proceed_button).click()
+                item.click()
 
                 if driver.current_url != sites[choice]:
                         error_count += 1
@@ -132,8 +134,9 @@ def Withdraw_requests(choice):
                     driver.find_element(By.XPATH, request_action).click()
                     
                     proceed_button = '//*[@id="vm-override-partners-form"]/form/div[3]/div/div/div/div/input'
+                    item = driver.find_element(By.XPATH, proceed_button)
                     add_comment(driver, comment)
-                    driver.find_element(By.XPATH, proceed_button).click()
+                    item.click()
                     
                     if driver.current_url != sites[choice]:
                         error_count += 1
