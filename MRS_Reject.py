@@ -57,7 +57,7 @@ def Withdraw_requests(choice):
 
     valid = False
     while not valid:    
-        comment = input("Enter Reason for Withdraw: ")
+        comment = input("Enter Reason for Rejection: ")
         if comment == '' or comment == None:
             print('Please input a Reason')
         else:
@@ -70,7 +70,7 @@ def Withdraw_requests(choice):
     error_count = 0
     error_ids = []
 
-    while num_remaining >= error_count:
+    while (num_remaining >= error_count and num_remaining != 0):
         
         if driver.current_url != sites[choice]:
             try:
@@ -103,9 +103,8 @@ def Withdraw_requests(choice):
             request_action = '//*[@id="Rejected"]'
             driver.find_element(By.XPATH, request_action).click()
 
-            add_comment(driver, comment)
-            
             proceed_button = '//*[@id="vm-cust-mass-update-form"]/form/div[3]/div/div/div/div/input'
+            add_comment(driver, comment)
             driver.find_element(By.XPATH, proceed_button).click()
 
             if driver.current_url != sites[choice]:
@@ -118,9 +117,8 @@ def Withdraw_requests(choice):
                 request_action = '//*[@id="rbRejected"]'
                 driver.find_element(By.XPATH, request_action).click()
 
-                add_comment(driver, comment)
-
                 proceed_button = '//*[@id="btnRequestAction"]'
+                add_comment(driver, comment)
                 driver.find_element(By.XPATH, proceed_button).click()
 
                 if driver.current_url != sites[choice]:
@@ -133,9 +131,8 @@ def Withdraw_requests(choice):
                     request_action = '//*[@id="Rejected"]'
                     driver.find_element(By.XPATH, request_action).click()
                     
-                    add_comment(driver, comment)
-                    
                     proceed_button = '//*[@id="vm-override-partners-form"]/form/div[3]/div/div/div/div/input'
+                    add_comment(driver, comment)
                     driver.find_element(By.XPATH, proceed_button).click()
                     
                     if driver.current_url != sites[choice]:

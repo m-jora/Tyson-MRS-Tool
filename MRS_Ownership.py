@@ -45,17 +45,25 @@ def Force_Ownership(choice):
     for cell in sheet.col(0):
         ids.append(str(cell.value)[:-2])
 
+    time.sleep(2)
     for x in ids:
+        try:
+            id_box = '//*[@id="vm-agent-mgr"]/div[1]/table/tbody/tr[2]/td[2]/input[1]'
+            searchinput = driver.find_element(By.XPATH, id_box)
+            searchinput.clear()
+            searchinput.send_keys(x)
 
-        id_box = '//*[@id="vm-agent-mgr"]/div[1]/table/tbody/tr[2]/td[2]/input[1]'
-        searchinput = driver.find_element(By.XPATH, id_box)
-        searchinput.send_keys(x)
+            force_button = '//*[@id="vm-agent-mgr"]/div[1]/table/tbody/tr[2]/td[2]/input[3]'
+            searchinput = driver.find_element(By.XPATH, force_button)
+            searchinput.click()
 
-        force_button = '//*[@id="vm-agent-mgr"]/div[1]/table/tbody/tr[2]/td[2]/input[3]'
-        searchinput = driver.find_element(By.XPATH, force_button)
-        searchinput.click()
-
-        time.sleep(2)
+            time.sleep(2)
+        except:
+            try:
+                time.sleep(2)
+                driver.switch_to.alert.accept()
+            except:
+                pass
 
     spinner_thread.stop()
     print()
