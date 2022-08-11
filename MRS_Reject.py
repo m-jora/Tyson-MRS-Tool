@@ -111,6 +111,7 @@ def Withdraw_requests(choice):
             if driver.current_url != sites[choice]:
                         error_count += 1
                         id += 1
+                        num_remaining -= 1
                         error_ids.append(current_request)
 
         except:
@@ -126,6 +127,7 @@ def Withdraw_requests(choice):
                 if driver.current_url != sites[choice]:
                         error_count += 1
                         id += 1
+                        num_remaining -= 1
                         error_ids.append(current_request)
 
             except:
@@ -141,10 +143,12 @@ def Withdraw_requests(choice):
                     if driver.current_url != sites[choice]:
                         error_count += 1
                         id += 1
+                        num_remaining -= 1
                         error_ids.append(current_request)
 
                 except:
                     id += 1
+                    num_remaining -= 1
                     error_count += 1
                     error_ids.append(current_request)
      
